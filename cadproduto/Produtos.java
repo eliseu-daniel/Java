@@ -8,14 +8,13 @@ public class Produtos {
         // Instancia a classe ListaProduto
         ListaProduto produto = new ListaProduto();
 
-        // Solicita ao usuário o nome do produto
         System.out.println("Item: ");
-        String nome = item.nextLine();
+        String nome = item.nextLine(); // Lê letras
 
-        // Passa os dados para a classe ListaProduto
-        produto.dados(nome, 1);
+        System.out.println("Qual a quantidade do itm?");
+        int qtd = item.nextInt(); //Lê numeros
+        produto.dados(nome, qtd);
 
-        // Chama o método para imprimir os dados
         produto.Impressao();
     }
 }
