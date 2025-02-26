@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Ex3{
     public static void main(String[] args){
         String nome = "";
-        String sexo = "";
+        String sexo = "homem";
         double  valor = 0.00;
         double total = 0.00;
 
@@ -17,12 +17,13 @@ public class Ex3{
         System.out.println("Informe o valor da compra");
         valor = entrada.nextDouble();
 
-        if(sexo == "homem"){
-           total = (valor/0.05);
+        if(sexo.equals("homem")){
+           total = valor - (valor*0.05);
 
            System.out.println("O valor a ser pago é de R$"+total);
-        }else{
-            total = (valor/0.10);
+        }
+        if(sexo.equals("mulher")){
+            total = valor - (valor*0.10);
            System.out.println("O valor a ser pago é de R$"+total);
         }
     }
