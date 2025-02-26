@@ -9,7 +9,7 @@ public class Ex1{
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("Informe a quantidade de dias trabalhados");
-        dias = entrada.nextLine();
+        dias = entrada.nextInt();
 
         System.out.println("O salário do funcionário é:" + (dias*horas));
 

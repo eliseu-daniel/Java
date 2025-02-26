@@ -17,12 +17,12 @@ public class Ex3{
         System.out.println("Informe o valor da compra");
         valor = entrada.nextDouble();
 
-        if(sexo == 'homem'){
+        if(sexo == "homem"){
            total = (valor/0.05);
 
            System.out.println("O valor a ser pago é de R$"+total);
         }else{
-            total = (valor/0.10)
+            total = (valor/0.10);
            System.out.println("O valor a ser pago é de R$"+total);
         }
     }

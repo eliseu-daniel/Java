@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Ex3{
+public class Ex4{
     public static void main(String[] args){
         double largura = 0.0;
         double comprimento = 0.0;

@@ -23,7 +23,7 @@ public class Ex2{
         {
             System.out.println("Olá " + nome +" ,sua média é: " + media);
             System.out.println("Você está aprovado");
-        }if else((media > 4) && (media < 7)){
+        }else if((media > 4) && (media < 7)){
             System.out.println("Olá " + nome +" ,sua média é: " + media);
             System.out.println("Você está de reprovado");
         }

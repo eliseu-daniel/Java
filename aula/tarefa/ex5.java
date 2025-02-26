@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Ex3{
+public class Ex5{
     public static void main(String[] args){
         double n1;
         double n2;
@@ -28,7 +28,7 @@ public class Ex3{
         System.out.println("Informe numero 7");
         n7 = entrada.nextDouble();
 
-        System.out.println("a soma deles é:" + soma = (n1+n2+n3+n4+n5+n6+n7));
+        System.out.println("a soma deles é:" +(soma = (n1+n2+n3+n4+n5+n6+n7)));
         System.out.println("a media deles é:" + (soma/7));
     }
 }
