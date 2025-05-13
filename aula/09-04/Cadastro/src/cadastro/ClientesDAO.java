@@ -80,4 +80,20 @@ public class ClientesDAO {
             JOptionPane.showMessageDialog(null, e); 
         } 
     } 
+    
+     public void excluirCliente(ClientesDTO objClientesDTO) { 
+        String sql = "delete from clientes where id_cliente = ?"; 
+ 
+        conn = Conexao.getConexao(); 
+        try { 
+            pstm = conn.prepareStatement(sql); 
+            pstm.setInt(1, objClientesDTO.getId_cliente()); 
+ 
+            pstm.execute(); 
+            pstm.close(); 
+ 
+        } catch (SQLException e) { 
+            JOptionPane.showMessageDialog(null, e); 
+        }
+     }
 }
