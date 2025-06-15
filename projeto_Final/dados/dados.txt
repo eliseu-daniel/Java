@@ -1,0 +1,38 @@
+Lanchonete
+ tabelas -> Cliente	(idCliente, idUser, nome, telefone, endereço)
+	 -> Produto	(idProduto, nome, valor, imagem?, qtd?)
+	 -> Pedido  	(idPedido, idCliente, data?)
+	 -> ItemPedido	(idItemPedido, idPedido, idProduto, qtd, preçoUnit (precoTotalCalculado) )
+	 -> Usuario	(idUser, nome, email, senha, telefone? )
+
+
+usuario faz cadastro no sistema
+usuario cadastra cliente
+usuario cadastra produto
+usuario faz pedido p/ cliente
+pedido tem itemPedido
+itemPedido tem produto e pedido
+usuario finaliza o pedido
+
+ Telas	-> Login ok
+	-> Cadastro Usuario ok
+	-> Home ok
+	-> Cadastro Cliente ok
+	-> Cadastro de Produto ok
+	-> Fazer Pedido ok
+	-> Historico (a partir dos dados do pedido, puxo o resto) ok
+	-> Produto Cadastrado ok
+	-> Cliente Cadastrado ok
+
+
+[Usuario] ----(cadastra, 1:N)----> [Cliente] ----(possui, 1:N)----> [Pedido]
+   |                                                           |
+   |                                                           |
+(cadastra, 1:N)                                                |
+   |                                                           |
+   v                                                           v 
+[Produto]     <----------(contém, N:N)---------------->     [Pedido]
+   |                              			       |
+   |                              			       |
+   |                             			       |
+   +--------------------------[ItemPedido]---------------------+ 

@@ -5,7 +5,7 @@
 package cadastro;
 
     import java.sql.*; 
-import java.util.ArrayList;
+    import java.util.ArrayList;
     import javax.swing.JOptionPane; 
 /**
  *
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class ClientesDAO {
     
-     Connection conn; 
+    Connection conn; 
     PreparedStatement pstm; 
     ResultSet rs;
     ArrayList <ClientesDTO> lista = new ArrayList();
