@@ -17,7 +17,6 @@ public class Conexao {
     //Método de Conexão// 
     public static String status = "Não conectou..."; 
  
- 
     public static java.sql.Connection getConexao() { 
  
         Connection conn = null;          //atributo do tipo Connection 

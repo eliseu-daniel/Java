@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package pedeja;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel; 
+import java.util.Vector; 
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,8 +19,29 @@ public class frmClientes extends javax.swing.JFrame {
      */
     public frmClientes() {
         initComponents();
+        listarClientes();
     }
+    
+    public void listarClientes(){
+        try{
+            ModelDAO objModelDAO = new ModelDAO();
 
+            DefaultTableModel model = (DefaultTableModel) TabelaClientes.getModel();
+            model.setNumRows(0);
+            ArrayList<ControllerDTO> lista = objModelDAO.ListarClientes();
+
+            for(int num=0; num < lista.size(); num++){
+                model.addRow(new Object[]{
+                    lista.get(num).getIdCliente(),
+                    lista.get(num).getNomeCliente(),
+                    lista.get(num).getTelefoneCliente(),
+                    lista.get(num).getEnderecoCliente(),
+                });
+            }
+        } catch (Exception e) { 
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,17 +57,17 @@ public class frmClientes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtIdCliente = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNomeCliente = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTelefoneCliente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtEnderecoCliente = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        btnListarClientes = new javax.swing.JButton();
+        TabelaClientes = new javax.swing.JTable();
         btnCarregarClientes = new javax.swing.JButton();
         btnAtualizarCliente = new javax.swing.JButton();
         btnExcluirCliente = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,7 +116,7 @@ public class frmClientes extends javax.swing.JFrame {
 
         jLabel4.setText("Endereço");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -99,22 +124,55 @@ public class frmClientes extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Identificação", "Nome", "Telefone", "Endereço"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        btnListarClientes.setBackground(new java.awt.Color(204, 255, 204));
-        btnListarClientes.setText("Listar");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(TabelaClientes);
+        if (TabelaClientes.getColumnModel().getColumnCount() > 0) {
+            TabelaClientes.getColumnModel().getColumn(0).setResizable(false);
+            TabelaClientes.getColumnModel().getColumn(1).setResizable(false);
+            TabelaClientes.getColumnModel().getColumn(2).setResizable(false);
+            TabelaClientes.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         btnCarregarClientes.setBackground(new java.awt.Color(0, 255, 255));
         btnCarregarClientes.setText("Carregar");
+        btnCarregarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarregarClientesActionPerformed(evt);
+            }
+        });
 
         btnAtualizarCliente.setBackground(new java.awt.Color(0, 204, 0));
         btnAtualizarCliente.setText("Atualizar");
+        btnAtualizarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarClienteActionPerformed(evt);
+            }
+        });
 
         btnExcluirCliente.setBackground(new java.awt.Color(255, 0, 0));
         btnExcluirCliente.setText("Excluir");
+        btnExcluirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirClienteActionPerformed(evt);
+            }
+        });
+
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,13 +193,14 @@ public class frmClientes extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnListarClientes)
-                                .addGap(18, 18, 18)
+                                .addGap(90, 90, 90)
                                 .addComponent(btnCarregarClientes)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnAtualizarCliente)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnExcluirCliente))
+                                .addComponent(btnExcluirCliente)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLimpar))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,9 +209,9 @@ public class frmClientes extends javax.swing.JFrame {
                                         .addComponent(jLabel1))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtTelefoneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtEnderecoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addComponent(jScrollPane1)))))
                 .addContainerGap(216, Short.MAX_VALUE))
@@ -174,23 +233,23 @@ public class frmClientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefoneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEnderecoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnListarClientes)
                     .addComponent(btnCarregarClientes)
                     .addComponent(btnAtualizarCliente)
-                    .addComponent(btnExcluirCliente))
+                    .addComponent(btnExcluirCliente)
+                    .addComponent(btnLimpar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(16, 16, 16))
@@ -216,6 +275,72 @@ public class frmClientes extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnCarregarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarClientesActionPerformed
+        // TODO add your handling code here:
+        int setar = TabelaClientes.getSelectedRow();
+        txtIdCliente.setText(TabelaClientes.getModel().getValueAt(setar, 0).toString());
+        txtNomeCliente.setText(TabelaClientes.getModel().getValueAt(setar, 1).toString());
+        txtTelefoneCliente.setText(TabelaClientes.getModel().getValueAt(setar, 2).toString());
+        txtEnderecoCliente.setText(TabelaClientes.getModel().getValueAt(setar, 3).toString());
+
+        txtNomeCliente.requestFocus();
+    }//GEN-LAST:event_btnCarregarClientesActionPerformed
+
+    private void btnAtualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarClienteActionPerformed
+        // TODO add your handling code here:
+        int IdCliente;
+        String nomeCliente, telefoneCliente, enderecoCliente;
+
+        IdCliente = Integer.parseInt(txtIdCliente.getText());
+        nomeCliente = txtNomeCliente.getText();
+        telefoneCliente = txtTelefoneCliente.getText();
+        enderecoCliente = txtEnderecoCliente.getText();
+
+        ControllerDTO objControllerDTO = new ControllerDTO();
+        objControllerDTO.setIdCliente(IdCliente);
+        objControllerDTO.setNomeCliente(nomeCliente);
+        objControllerDTO.setTelefoneCliente(telefoneCliente);
+        objControllerDTO.setEnderecoCliente(enderecoCliente);
+
+        ModelDAO objModelDAO = new ModelDAO();
+        objModelDAO.alterarCliente(objControllerDTO);
+        limparDados();
+        JOptionPane.showMessageDialog(null, "Dados Atualizados com Sucesso");
+        listarClientes();
+
+    }//GEN-LAST:event_btnAtualizarClienteActionPerformed
+
+    private void btnExcluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirClienteActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(null, "Deseja excluir este registro?", 
+                "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0) { 
+            int id_cliente; 
+            
+            int setar = TabelaClientes.getSelectedRow();
+            id_cliente = Integer.parseInt(TabelaClientes.getModel().getValueAt(setar, 0).toString());
+            
+            ControllerDTO objControllerDTO = new ControllerDTO();
+            objControllerDTO.setIdCliente(id_cliente);
+
+            ModelDAO objModelDAO = new ModelDAO();
+            objModelDAO.excluirCliente(objControllerDTO);
+            listarClientes();
+        }
+        
+    }//GEN-LAST:event_btnExcluirClienteActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        // TODO add your handling code here:
+        limparDados();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    public void limparDados(){
+        txtIdCliente.setText("");
+        txtNomeCliente.setText("");
+        txtTelefoneCliente.setText("");
+        txtEnderecoCliente.setText("");
+    }
 
     /**
      * @param args the command line arguments
@@ -253,22 +378,22 @@ public class frmClientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TabelaClientes;
     private javax.swing.JButton btnAtualizarCliente;
     private javax.swing.JButton btnCarregarClientes;
     private javax.swing.JButton btnExcluirCliente;
-    private javax.swing.JButton btnListarClientes;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField txtEnderecoCliente;
     private javax.swing.JTextField txtIdCliente;
+    private javax.swing.JTextField txtNomeCliente;
+    private javax.swing.JTextField txtTelefoneCliente;
     // End of variables declaration//GEN-END:variables
 }

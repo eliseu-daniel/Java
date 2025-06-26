@@ -9,7 +9,21 @@ package pedeja;
  * @author Eliseu
  */
 public class ControllerDTO {
-    private String nomeCliente, telefoneCliente, enderecoCliente, nomeProduto, imagemProduto, nomeUsuario, emailUsuario, senhaUsuario, telefoneUsuario;
+
+    /**
+     * @return the dataPedido
+     */
+    public String getDataPedido() {
+        return dataPedido;
+    }
+
+    /**
+     * @param dataPedido the dataPedido to set
+     */
+    public void setDataPedido(String dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+    private String nomeCliente, telefoneCliente, enderecoCliente, nomeProduto, imagemProduto, nomeUsuario, emailUsuario, senhaUsuario, telefoneUsuario, descProduto, dataPedido;
     private int IdCliente, IdUser, IdProduto, IdPedido, qtdItemPedido;
     private double valorItemPedido, valorProduto;
 
@@ -235,5 +249,19 @@ public class ControllerDTO {
      */
     public void setValorProduto(double valorProduto) {
         this.valorProduto = valorProduto;
+    }
+
+    /**
+     * @return the descProduto
+     */
+    public String getDescProduto() {
+        return descProduto;
+    }
+
+    /**
+     * @param descProduto the descProduto to set
+     */
+    public void setDescProduto(String descProduto) {
+        this.descProduto = descProduto;
     }
 }
